@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+  <style>
+    body {
+      width: 300px;
+      height: 300px;
+      display: grid; 
+      grid-template-columns: max-content; 
+    }
+    #fill-columns {
+      display: grid;
+      grid-template-columns: max-content; 
+    }
+    label {
+      display: grid;
+    }
+    button {
+      width: 80%;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <select name="" id="fill-option">
+    <option value="" default>Select field</option>
+    <option value="networking">Fill in Networking</option>
+    <option value="applications">Fill in Applications</option>
+  </select>
+  <div id="fill-columns">
+  </div>
+  <button id="oneClick">
+    One click for all
+  </button>
+  <button id="removeAll">
+    Remove all columns
+  </button>
+  <button id="reset">
+    Reset
+  </button>
+  <script src="popup.js"></script>
+</body>
+</html>
