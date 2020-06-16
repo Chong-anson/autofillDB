@@ -1,21 +1,27 @@
 <html lang="en">
 <head>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      width: 300px;
-      height: 300px;
+      /* width: 300px; */
+      /* height: 300px; */
       display: grid; 
       grid-template-columns: max-content; 
     }
-    #fill-columns {
+    #fill-columns, .buttons-container {
       display: grid;
       grid-template-columns: max-content; 
+      justify-content: center;
+      grid-gap: 10px 0;
+      margin-top: 10px;
+
     }
     label {
       display: grid;
     }
     button {
-      width: 80%;
       outline: none;
     }
   </style>
@@ -28,15 +34,17 @@
   </select>
   <div id="fill-columns">
   </div>
-  <button id="oneClick">
-    One click for all
-  </button>
-  <button id="removeAll">
-    Remove all columns
-  </button>
-  <button id="reset">
-    Reset
-  </button>
+  <div class="buttons-container">
+    <button id="oneClick">
+      One click for all
+    </button>
+    <button id="removeAll">
+      Remove all columns
+    </button>
+    <button id="reset">
+      Reset
+    </button>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>
