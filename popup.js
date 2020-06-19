@@ -24,6 +24,21 @@ function sendMessage(request) {
   });
 }
 
+// adding listener to input
+function listener(element, event, handler) {
+  element.addEventListener(event, element, false);
+}
+
+function autoResize(event) {
+  this.style.height = "auto";
+  this.style.height = this.scrollHeight + "px";
+  console.log(this);
+}
+
+function delayResize() {
+  window.setTimeout(autoResize, 0);
+}
+
 select.onchange = function (event) {
   let inputs = [];
   container.innerHTML = "";
@@ -40,6 +55,11 @@ select.onchange = function (event) {
     let input = document.createElement("textarea");
     input.id = "input-" + types[i];
     inputs.push(input);
+    input.onchange = autoResize;
+    const events = ["cut", "paste", "drop", "keydown"];
+    events.forEach((event) => {
+      listener(input, event, delayResize);
+    });
     label.append(input);
     container.append(label);
   }
