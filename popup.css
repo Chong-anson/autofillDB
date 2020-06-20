@@ -8,27 +8,44 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 300px;
+  font-size: 18px;
   display: grid;
   grid-template-columns: max-content;
+  grid-template-rows: 1fr max-content;
 }
-
 #fill-columns,
 .buttons-container {
   display: grid;
-  grid-template-columns: max-content;
-  justify-content: center;
-  grid-gap: 10px 0;
-  margin-top: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  place-content: center;
+  column-gap: 10px;
+}
+.buttons-container {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+
 }
 label {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+}
+select {
+  padding: 5px;
+  font-size: 18px;
 }
 button {
   outline: none;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 10px 15px;
+  border-radius: 5px;
+  padding: 10px 12px;
 }
 textarea {
   width: 200px;
+  flex-grow: 1;
   overflow: hidden;
   padding: 0;
   outline: none;
+  resize: none;
 }

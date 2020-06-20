@@ -1,17 +1,23 @@
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="./popup.css">
+    <link rel="stylesheet" href="./popup.css" />
   </head>
   <body>
-    <select name="" id="fill-option">
-      <option value="" default>Select field</option>
-      <option value="networking">Fill in Networking</option>
-      <option value="applications">Fill in Applications</option>
-    </select>
-    <div id="fill-columns"></div>
+    <div class="row">
+      <span>Choose input fields: </span>
+      <select name="" id="fill-option">
+        <option value="" disabled selected>Category</option>
+        <option value="networking">Networking</option>
+        <option value="applications">Job Applications</option>
+      </select>
+      <div id="fill-columns"></div>
+    </div>
     <div class="buttons-container">
+      <button id="submit">
+        Submit
+      </button>
       <button id="oneClick">
-        One click for all
+        Click dropdown
       </button>
       <button id="removeAll">
         Remove all columns

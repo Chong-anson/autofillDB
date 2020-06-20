@@ -3,6 +3,7 @@ const select = document.getElementById("fill-option");
 const resetButton = document.getElementById("reset");
 const oneClickButton = document.getElementById("oneClick");
 const removeAllButton = document.getElementById("removeAll");
+const submitButton = document.getElementById("submit");
 
 function processInput(input) {
   return input.map((el) => {
@@ -26,17 +27,17 @@ function sendMessage(request) {
 
 // adding listener to input
 function listener(element, event, handler) {
-  element.addEventListener(event, element, false);
+  element.addEventListener(event, handler, false);
 }
 
-function autoResize(event) {
+function autoResize() {
+  console.log("upda")
   this.style.height = "auto";
-  this.style.height = this.scrollHeight + "px";
-  console.log(this);
+  this.style.height = this.scrollHeight + 5 + "px";
 }
 
-function delayResize() {
-  window.setTimeout(autoResize, 0);
+function delayResize(event) {
+  window.setTimeout(autoResize.bind(this), 0);
 }
 
 select.onchange = function (event) {
@@ -54,49 +55,45 @@ select.onchange = function (event) {
     if (types[i] === "category") label.innerText += " default: clearbit";
     let input = document.createElement("textarea");
     input.id = "input-" + types[i];
+    input.className = "form-control"
     inputs.push(input);
-    input.onchange = autoResize;
-    const events = ["cut", "paste", "drop", "keydown"];
-    events.forEach((event) => {
-      listener(input, event, delayResize);
-    });
+    input.oninput = autoResize;
+    // const events = ["change", "cut", "paste", "drop", "keydown"];
+    // events.forEach((event) => {
+    //   listener(input, event, delayResize);
+    // });
     label.append(input);
     container.append(label);
   }
+};
 
-  let button = document.createElement("button");
-  button.innerText = "Submit";
-  container.append(button);
+submitButton.onclick = function (e) {
+  const inputs = Array.from(document.getElementsByClassName("form-control"));
+  let processedInputs = inputs.map((input) =>
+    processInput(input.value.split("\n"))
+  );
+  let request;
 
-  button.onclick = function (e) {
-    console.log(inputs);
-    let processedInputs = inputs.map((input) =>
-      processInput(input.value.split("\n"))
-    );
-    let request;
-
-    if (event.target.value === "networking") {
-      if (processedInputs[2].length === 0) {
-        processedInputs[2].push("clearbit");
-      }
-
-      request = {
-        type: "networking",
-        contacts: processedInputs[0],
-        companies: processedInputs[1],
-        categories: processedInputs[2],
-      };
-    } else if (event.target.value === "applications") {
-      request = {
-        type: "applications",
-        companies: processedInputs[0],
-        titles: processedInputs[1],
-        jobBoards: processedInputs[2],
-      };
+  if (select.value === "networking") {
+    if (processedInputs[2].length === 0) {
+      processedInputs[2].push("clearbit");
     }
 
-    sendMessage(request);
-  };
+    request = {
+      type: "networking",
+      contacts: processedInputs[0],
+      companies: processedInputs[1],
+      categories: processedInputs[2],
+    };
+  } else if (select.value === "applications") {
+    request = {
+      type: "applications",
+      companies: processedInputs[0],
+      titles: processedInputs[1],
+      jobBoards: processedInputs[2],
+    };
+  }
+  sendMessage(request);
 };
 
 resetButton.onclick = function (e) {
