@@ -9,9 +9,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
   min-height: 300px;
   font-size: 18px;
-  display: grid;
-  grid-template-columns: max-content;
-  grid-template-rows: 1fr max-content;
+  display: flex;
+  flex-direction: column;
+  margin: 10 15px 0;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+}
+a {
+  font-size: 10px;
+}
+.row {
+  flex-grow: 1;
+  width: max-content;
 }
 #fill-columns,
 .buttons-container {
@@ -21,9 +32,14 @@ body {
   column-gap: 10px;
 }
 .buttons-container {
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-
+  grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+  /* grid-template-rows: repeat(2, 1fr); */
+  margin: 10px 0 15px;
+  row-gap: 5px;
+}
+h1 {
+  font-size: 32px;
+  margin: 0;
 }
 label {
   display: flex;
@@ -37,7 +53,7 @@ button {
   outline: none;
   font-size: 18px;
   font-weight: 500;
-  margin: 10px 15px;
+  margin: 5px;
   border-radius: 5px;
   padding: 10px 12px;
 }

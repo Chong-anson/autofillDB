@@ -1,9 +1,3 @@
-const container = document.getElementById("fill-columns");
-const select = document.getElementById("fill-option");
-const resetButton = document.getElementById("reset");
-const oneClickButton = document.getElementById("oneClick");
-const removeAllButton = document.getElementById("removeAll");
-const submitButton = document.getElementById("submit");
 
 function processInput(input) {
   return input.map((el) => {
@@ -14,7 +8,7 @@ function processInput(input) {
     }
 
     return el.slice(0, pointer + 1);
-  });
+  }).filter(el => el.length > 0);
 }
 
 function sendMessage(request) {
@@ -31,7 +25,6 @@ function listener(element, event, handler) {
 }
 
 function autoResize() {
-  console.log("upda")
   this.style.height = "auto";
   this.style.height = this.scrollHeight + 5 + "px";
 }
@@ -39,6 +32,21 @@ function autoResize() {
 function delayResize(event) {
   window.setTimeout(autoResize.bind(this), 0);
 }
+
+const container = document.getElementById("fill-columns");
+const select = document.getElementById("fill-option");
+const resetButton = document.getElementById("reset");
+const oneClickButton = document.getElementById("oneClick");
+const removeAllButton = document.getElementById("removeAll");
+const submitButton = document.getElementById("submit");
+const sourceUrl = document.getElementById("source");
+
+sourceUrl.addEventListener("click", (event) => {
+  event.preventDefault();
+  chrome.tabs.create({
+      url: event.target.href,
+    });
+});
 
 select.onchange = function (event) {
   let inputs = [];
@@ -58,10 +66,6 @@ select.onchange = function (event) {
     input.className = "form-control"
     inputs.push(input);
     input.oninput = autoResize;
-    // const events = ["change", "cut", "paste", "drop", "keydown"];
-    // events.forEach((event) => {
-    //   listener(input, event, delayResize);
-    // });
     label.append(input);
     container.append(label);
   }
@@ -71,11 +75,12 @@ submitButton.onclick = function (e) {
   const inputs = Array.from(document.getElementsByClassName("form-control"));
   let processedInputs = inputs.map((input) =>
     processInput(input.value.split("\n"))
-  );
-  let request;
+  )
 
+  console.log(processedInputs[2]);
   if (select.value === "networking") {
     if (processedInputs[2].length === 0) {
+      console.log("test")
       processedInputs[2].push("clearbit");
     }
 
